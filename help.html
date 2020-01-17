@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <style>
+    :root {
+        --main-background-color: #252525;
+        --main-color: #33a1c9;
+
+        --request-get: #26a66a;
+        --request-post: #bf820f;
+        --request-del: #bf4240;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        font-family: monospace;
+        line-height: 1.4;
+    }
+
+    *:not(h1):not(h2):not(h3):not(h4):not(H5):not(H6) {
+        font-size: 16px;
+    }
+
+    html,
+    body {
+        background-color: var(--main-background-color);
+        color: #ffffff;
+    }
+
+    main {
+        display: grid;
+        grid-template-columns: 25% 75%;
+    }
+
+    main div.side {
+        padding: 1em;
+    }
+
+    main div.side div.type {
+        text-transform: uppercase;
+        font-size: 1.5em;
+        margin-bottom: .5em;
+    }
+
+    main div.side div.type.get {
+        color: var(--request-get);
+    }
+
+    main div.side div.type.post {
+        color: var(--request-post);
+    }
+
+    main div.side div.type.del {
+        color: var(--request-del);
+    }
+
+    main div.side div.link::before {
+        content: attr(data-link);
+    }
+
+    main div.section {
+        padding: 1em;
+        border-left: 2px solid var(--main-color);
+    }
+
+    main div.section:not(.first) {
+        border-top: 2px solid var(--main-color);
+    }
+
+    main div.section div.title {
+        margin-bottom: 1em;
+    }
+
+    main div.section div.data table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    main div.section div.data table tr:nth-child(even) {
+        background-color: #404040;
+    }
+
+    main div.section div.data table tr th,
+    main div.section div.data table tr td {
+        padding: .5em;
+    }
+
+    main div.section div.data table th {
+        font-size: 1.2em;
+        padding: 0 .5em;
+        text-align: left;
+    }
+
+    main div.section div.data table th.key,
+    main div.section div.data table td.key {
+        width: 20%;
+    }
+
+    main div.section div.data table th.type,
+    main div.section div.data table td.type {
+        width: 25%;
+    }
+
+    main div.section div.data table th.description,
+    main div.section div.data table td.description {
+        width: 55%;
+    }
+    </style>
+    <title>Manager API</title>
+</head>
+<body>
+    <main>
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/</div>
+        </div>
+
+        <div class="section first" id="/">
+            <div class="title">
+                <h1>Help page</h1>
+            </div>
+
+            <div class="description">
+                <p>Get the help page you're currently on.</p>
+            </div>
+        </div>
+
+        <div class="side">
+            <div class="type post">post</div>
+
+            <div class="link">/nice/?ding=idk&lol=12334</div>
+        </div>
+
+        <div class="section" id="/nice/">
+            <div class="title">
+                <h1>/nice/</h1>
+            </div>
+
+            <div class="data">
+                <table>
+                    <tr>
+                        <th class="key">Key</th>
+                        <th class="type">Type</th>
+                        <th class="description">Description</th>
+                    </tr>
+
+                    <tr>
+                        <td class="key">ding</td>
+                        <td class="type">String[]</td>
+                        <td class="description">Ja weet ik veel wat je hier in zou moeten vullen.</td>
+                    </tr>
+                    <tr>
+                        <td class="key">lol</td>
+                        <td class="type">Number[]?</td>
+                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td class="description">
+                    </tr>
+                    <tr>
+                        <td class="key">hopeloos</td>
+                        <td class="type">Number?</td>
+                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td class="description">
+                    </tr>
+				</table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        const MAIN_COLOR = '#33a1c9'
+        const KEY_COLOR = '#f1c40f'
+        const VALUE_COLOR = '#eb3b5a'
+        const QUERY_COLOR = '#2ecc71'
+
+        /**
+         * Parse a link to a fancy link with colors.
+         * 
+         * @param {String} link
+         * @return {String} The parsed link
+         */
+        function parseLink(link) {
+            const BREAK = `\u200b`
+            const SLASH = `<span style="color: ${MAIN_COLOR}">${BREAK}&sol;${BREAK}</span>`
+            const KEY   = `<span style="color: ${KEY_COLOR}">X</span>`
+            const VALUE = `<span style="color: ${VALUE_COLOR}">X</span>`
+            const QUERY = `<span style="color: ${QUERY_COLOR}">${BREAK}&quest;${BREAK}</span>`
+
+            if (!link.includes('?')) {
+                return link.replace(/\//g, SLASH)
+            } else {
+                console.log('wtf')
+                var start = link.split('?')[0]
+                var end = link.split('?')[1]
+                var keyValueArr = end.split(/&amp;/)
+                var formattedKeyValueArr = []
+
+                for (var i = 0; i < keyValueArr.length; i++) {
+                    console.log(i, keyValueArr[i])
+                    var keyValue = keyValueArr[i].split('=')
+
+                    keyValue[0] = KEY.replace('X', keyValue[0])
+                    keyValue[1] = VALUE.replace('X', keyValue[1])
+
+                    formattedKeyValueArr.push(keyValue.join('='))
+                    console.log(formattedKeyValueArr[i])
+                }
+
+                return `${start.replace(/\//g, SLASH)}${QUERY}${formattedKeyValueArr.join('&amp;')}`
+            }
+        }
+
+        document.querySelectorAll('div.link').forEach(elem => {
+            elem.setAttribute('data-link', window.location.origin)
+            elem.innerHTML = parseLink(elem.innerHTML)
+        })
+
+        document.querySelectorAll('td.type').forEach(elem => {
+            const TYPE = `<span style="color: ${MAIN_COLOR}">X</span>`
+            var end = ''
+
+            if (elem.innerHTML.includes('[]')) end += '[]'
+            if (elem.innerHTML.includes('?'))  end += '?'
+
+            elem.innerHTML = `${TYPE.replace('X', elem.innerHTML.replace(/\[|\]|\?/g, ''))}${end}`
+        })
+    </script>
+</body>
+</html>

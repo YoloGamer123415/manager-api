@@ -1,0 +1,22 @@
+{
+  "name": "manager-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/YoloGamer123415/manager-api.git",
+  "author": "YoloGamer123415",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "express": "^4.17.1",
+    "googleapis": "39"
+  },
+  "devDependencies": {
+    "build-esm": "^4.2.2",
+    "esm": "^3.2.25"
+  },
+  "scripts": {
+    "test": "nodemon -r \"esm\" .",
+    "build": "build-esm && npm run start",
+    "start": "node dist/index.js"
+  }
+}
