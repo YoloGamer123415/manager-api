@@ -24,6 +24,12 @@ function getLinkArray(maxLength = 5) {
     return ret
 }
 
+app.get('*', (req, res, next) => {
+	console.log('[ REQUEST ]', req.url);
+
+	next();
+})
+
 app.get('/', (req, res) => {
     res.status(200).sendFile(`${__dirname}/help.html`, err => {
         if (err) console.error(err)

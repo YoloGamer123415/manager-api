@@ -39,13 +39,15 @@ class Handler {
         this.res = res
         this.statusCode = 200
         this.alreadySend = false
+        this.mayRun = true
 
         if (checkAuth && !(
             this.req.headers &&
             this.req.headers['x-token'] &&
             this.req.headers['x-token'] === auth.token
         )) {
-            this.status(401).error('')
+            this.mayRun = false
+            this.status(401).error()
         }
     }
 
@@ -127,7 +129,8 @@ class Handler {
      * @memberof Handler
      */
     run(args) {
-        this.status(501).send()
+        if (this.mayRun)
+            this.status(501).send()
     }
 }
 

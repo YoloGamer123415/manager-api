@@ -8,7 +8,8 @@
   "private": true,
   "dependencies": {
     "express": "^4.17.1",
-    "googleapis": "39"
+    "googleapis": "39",
+    "newsapi": "^2.4.0"
   },
   "devDependencies": {
     "build-esm": "^4.2.2",

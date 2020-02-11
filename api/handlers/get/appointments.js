@@ -26,15 +26,17 @@ class FetchAppointmentsHandler extends Handler {
      * @memberof Handler
      */
     run(args) {
-        let agenda = new Agenda()
-
-        agenda.getAppointments(args[0], args[1]).then(res => {
-            this.send({ appointments: res})
-        })
-        .catch(err => {
-            console.error(err)
-            this.error(err)
-        })
+        if (this.mayRun) {
+            let agenda = new Agenda()
+    
+            agenda.getAppointments(args[0], args[1]).then(res => {
+                this.send({ appointments: res})
+            })
+            .catch(err => {
+                console.error(err)
+                this.error(err)
+            })
+        }
     }
 }
 
