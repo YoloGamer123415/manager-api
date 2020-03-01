@@ -19,6 +19,13 @@ class FetchMailsHandler extends Handler {
         super(req, res)
     }
 
+    /**
+     *
+     *
+     * @override
+     * @param {*} args
+     * @memberof FetchMailsHandler
+     */
     run(args) {
         if (this.mayRun) {
             let gmail = new Gmail()

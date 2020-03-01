@@ -15,6 +15,7 @@ class TestHandler extends Handler {
     /**
      * Run the handler.
      *
+     * @override
      * @param {Array<any>} agrs
      * @memberof TestHandler
      */

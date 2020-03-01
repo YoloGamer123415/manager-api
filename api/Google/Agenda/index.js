@@ -1,6 +1,7 @@
 import Google from "..";
 import { google } from "googleapis";
 import Appointment from "./Appointment";
+import Calendar from "./Calendar";
 
 /**
  * Get the time today started, eg. jan 1, 2019, 00:00:00.000.
@@ -31,6 +32,37 @@ class Agenda extends Google {
             version: 'v3',
             auth: this.oAuth2Client
         })
+    }
+
+    getCalendars() {
+        return new Promise((resolve, reject) => {
+            this.agenda.calendarList.list({
+                showHidden: true
+            })
+                .then(r => r.data.items)
+                .then(res => {
+                    /**
+                     * @type {Calendar[]}
+                     */
+                    let ret = [];
+
+                    res.forEach(calendar => {
+                        ret.push(new Calendar({
+                            id: calendar.id,
+                            summary: calendar.summary,
+                            timezone: calendar.timeZone,
+                            color: {
+                                foreground: calendar.foregroundColor,
+                                background: calendar.backgroundColor
+                            },
+                            hidden: !calendar.selected
+                        }));
+                    });
+
+                    resolve(ret);
+                })
+                .catch(reject);
+        });
     }
 
     /**

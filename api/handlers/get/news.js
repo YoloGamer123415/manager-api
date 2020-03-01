@@ -55,6 +55,13 @@ class FetchNewsHandler extends Handler {
         this.newsapi = new NewsApi(news.key).v2
     }
 
+    /**
+     *
+     *
+     * @override
+     * @param {*} args
+     * @memberof FetchNewsHandler
+     */
     run(args) {
         if (this.mayRun) {
             this.newsapi.everything({
