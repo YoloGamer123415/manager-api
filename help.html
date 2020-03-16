@@ -4,111 +4,123 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
     <style>
-    :root {
-        --main-background-color: #252525;
-        --main-color: #33a1c9;
+        :root {
+            --main-background-color: #252525;
+            --main-color: #33a1c9;
 
-        --request-get: #26a66a;
-        --request-post: #bf820f;
-        --request-del: #bf4240;
-    }
+            --request-get: #26a66a;
+            --request-post: #bf820f;
+            --request-del: #bf4240;
+        }
 
-    * {
-        margin: 0;
-        padding: 0;
-        font-family: monospace;
-        line-height: 1.4;
-    }
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
 
-    *:not(h1):not(h2):not(h3):not(h4):not(H5):not(H6) {
-        font-size: 16px;
-    }
+        ::-webkit-scrollbar-thumb {
+            background-color: #808080;
+            border-radius: 100px;
+        }
 
-    html,
-    body {
-        background-color: var(--main-background-color);
-        color: #ffffff;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: monospace;
+            line-height: 1.4;
+        }
 
-    main {
-        display: grid;
-        grid-template-columns: 25% 75%;
-    }
+        *:not(h1):not(h2):not(h3):not(h4):not(H5):not(H6) {
+            font-size: 16px;
+        }
 
-    main div.side {
-        padding: 1em;
-    }
+        html,
+        body {
+            background-color: var(--main-background-color);
+            color: #ffffff;
+        }
 
-    main div.side div.type {
-        text-transform: uppercase;
-        font-size: 1.5em;
-        margin-bottom: .5em;
-    }
+        main {
+            display: grid;
+            grid-template-columns: 25% 75%;
+        }
 
-    main div.side div.type.get {
-        color: var(--request-get);
-    }
+        main div.side {
+            padding: 1em;
+        }
 
-    main div.side div.type.post {
-        color: var(--request-post);
-    }
+        main div.side div.type {
+            text-transform: uppercase;
+            font-size: 1.5em;
+            margin-bottom: .5em;
+        }
 
-    main div.side div.type.del {
-        color: var(--request-del);
-    }
+        main div.side div.type.get {
+            color: var(--request-get);
+        }
 
-    main div.side div.link::before {
-        content: attr(data-link);
-    }
+        main div.side div.type.post {
+            color: var(--request-post);
+        }
 
-    main div.section {
-        padding: 1em;
-        border-left: 2px solid var(--main-color);
-    }
+        main div.side div.type.del {
+            color: var(--request-del);
+        }
 
-    main div.section:not(.first) {
-        border-top: 2px solid var(--main-color);
-    }
+        main div.side div.link::before {
+            content: attr(data-link);
+        }
 
-    main div.section div.title {
-        margin-bottom: 1em;
-    }
+        main div.section {
+            padding: 1em;
+            border-left: 2px solid var(--main-color);
+        }
 
-    main div.section div.data table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+        main div.section div.title {
+            margin-bottom: 1em;
+        }
 
-    main div.section div.data table tr:nth-child(even) {
-        background-color: #404040;
-    }
+        main div.section div.data table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-    main div.section div.data table tr th,
-    main div.section div.data table tr td {
-        padding: .5em;
-    }
+        main div.section div.data table tr:nth-child(even) {
+            background-color: #404040;
+        }
 
-    main div.section div.data table th {
-        font-size: 1.2em;
-        padding: 0 .5em;
-        text-align: left;
-    }
+        main div.section div.data table tr th,
+        main div.section div.data table tr td {
+            padding: .5em;
+        }
 
-    main div.section div.data table th.key,
-    main div.section div.data table td.key {
-        width: 20%;
-    }
+        main div.section div.data table th {
+            font-size: 1.2em;
+            padding: 0 .5em;
+            text-align: left;
+        }
 
-    main div.section div.data table th.type,
-    main div.section div.data table td.type {
-        width: 25%;
-    }
+        main div.section div.data table th.key,
+        main div.section div.data table td.key {
+            width: 20%;
+        }
 
-    main div.section div.data table th.description,
-    main div.section div.data table td.description {
-        width: 55%;
-    }
+        main div.section div.data table th.type,
+        main div.section div.data table td.type {
+            width: 25%;
+        }
+
+        main div.section div.data table th.description,
+        main div.section div.data table td.description {
+            width: 55%;
+        }
+
+        main div.result {
+            padding-top: 1em;
+        }
     </style>
     <title>Manager API</title>
 </head>
@@ -120,7 +132,7 @@
             <div class="link">/</div>
         </div>
 
-        <div class="section first" id="/">
+        <div class="section" id="/">
             <div class="title">
                 <h1>Help page</h1>
             </div>
@@ -157,14 +169,62 @@
                     <tr>
                         <td class="key">lol</td>
                         <td class="type">Number[]?</td>
-                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td class="description">
+                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td>
                     </tr>
                     <tr>
                         <td class="key">hopeloos</td>
                         <td class="type">Number?</td>
-                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td class="description">
+                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td>
                     </tr>
-				</table>
+                </table>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "idk": 123,
+    "nice": [ 1, null, "yeet" ],
+    "oof": {
+        "a": true
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/news/</div>
+        </div>
+
+        <div class="section" id="/news/">
+            <div class="title">
+                <h1>Get all the news</h1>
+            </div>
+
+            <div class="description">
+                <p>Get all the latest news.</p>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/news/",
+    "code": 200,
+    "error": null,
+    "data": {
+        "news": [
+            {
+                "source": "Telegraaf.nl",
+                "author": "Alexander Bakker en Martin Visser",
+                "title": "Kabinet: ook steun voor zzp’ers",
+                "description": "Het kabinet zal werknemers, ondernemers én zzp’ers inkomensbescherming bieden. Daarvoor komt de regering nog deze week met een pakket aanvullende maatregelen.",
+                "url": "https://www.telegraaf.nl/financieel/492984703/kabinet-ook-steun-voor-zzp-ers",
+                "image": "https://www.telegraaf.nl/images/1200x630/filters:format(jpeg):quality(80)/cdn-kiosk-api.telegraaf.nl/2c828064-67af-11ea-9a2e-02d1dbdc35d1.jpg"
+            },
+            ...
+        ],
+        "length": 20
+    }
+}</code></pre>
             </div>
         </div>
     </main>
@@ -174,7 +234,7 @@
         const KEY_COLOR = '#f1c40f'
         const VALUE_COLOR = '#eb3b5a'
         const QUERY_COLOR = '#2ecc71'
-
+        
         /**
          * Parse a link to a fancy link with colors.
          * 
@@ -187,30 +247,31 @@
             const KEY   = `<span style="color: ${KEY_COLOR}">X</span>`
             const VALUE = `<span style="color: ${VALUE_COLOR}">X</span>`
             const QUERY = `<span style="color: ${QUERY_COLOR}">${BREAK}&quest;${BREAK}</span>`
-
+            
             if (!link.includes('?')) {
-                return link.replace(/\//g, SLASH)
+                return `<br>${link.replace(/\//g, SLASH)}`
             } else {
-                console.log('wtf')
                 var start = link.split('?')[0]
                 var end = link.split('?')[1]
                 var keyValueArr = end.split(/&amp;/)
                 var formattedKeyValueArr = []
-
+                
                 for (var i = 0; i < keyValueArr.length; i++) {
-                    console.log(i, keyValueArr[i])
                     var keyValue = keyValueArr[i].split('=')
-
+                    
                     keyValue[0] = KEY.replace('X', keyValue[0])
                     keyValue[1] = VALUE.replace('X', keyValue[1])
-
+                    
                     formattedKeyValueArr.push(keyValue.join('='))
-                    console.log(formattedKeyValueArr[i])
                 }
-
-                return `${start.replace(/\//g, SLASH)}${QUERY}${formattedKeyValueArr.join('&amp;')}`
+                
+                return `<br>${start.replace(/\//g, SLASH)}${QUERY}${formattedKeyValueArr.join('&amp;')}`
             }
         }
+        
+        hljs.initHighlightingOnLoad({
+            // tabReplace: '    '
+        });
 
         document.querySelectorAll('div.link').forEach(elem => {
             elem.setAttribute('data-link', window.location.origin)
