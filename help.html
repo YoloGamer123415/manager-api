@@ -14,6 +14,8 @@
             --request-get: #26a66a;
             --request-post: #bf820f;
             --request-del: #bf4240;
+
+            --color-data: #ff9800;
         }
 
         ::-webkit-scrollbar {
@@ -29,7 +31,6 @@
         * {
             margin: 0;
             padding: 0;
-            font-family: monospace;
             line-height: 1.4;
         }
 
@@ -41,6 +42,7 @@
         body {
             background-color: var(--main-background-color);
             color: #ffffff;
+            font-family: sans-serif;
         }
 
         main {
@@ -50,6 +52,7 @@
 
         main div.side {
             padding: 1em;
+            font-family: monospace;
         }
 
         main div.side div.type {
@@ -83,6 +86,24 @@
             margin-bottom: 1em;
         }
 
+        main div.section div.description span.link-section {
+            font-family: monospace;
+            background: var(--main-background-color);
+        }
+
+        main div.section div.description span.link-section::before,
+        main div.section div.description span.link-section::after {
+            color: var(--color-data);
+        }
+
+        main div.section div.description span.link-section::before {
+            content: '{';
+        }
+
+        main div.section div.description span.link-section::after {
+            content: '}';
+        }
+
         main div.section div.data table {
             width: 100%;
             border-collapse: collapse;
@@ -106,11 +127,13 @@
         main div.section div.data table th.key,
         main div.section div.data table td.key {
             width: 20%;
+            font-family: monospace;
         }
 
         main div.section div.data table th.type,
         main div.section div.data table td.type {
             width: 25%;
+            font-family: monospace;
         }
 
         main div.section div.data table th.description,
@@ -120,6 +143,7 @@
 
         main div.result {
             padding-top: 1em;
+            font-family: monospace !important;
         }
     </style>
     <title>Manager API</title>
@@ -227,10 +251,172 @@
 }</code></pre>
             </div>
         </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/calendars/</div>
+        </div>
+
+        <div class="section" id="/calendars/">
+            <div class="title">
+                <h1>Get all calendars</h1>
+            </div>
+
+            <div class="description">
+                <p>Get all the available calendars.</p>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/calendars/",
+    "code": 200,
+    "error": null,
+    "data": {
+        "calendars": [
+            {
+                "id": "bouut5c591jk0dhi7e0k92p2hc@group.calendar.google.com",
+                "timezone": "Europe/Amsterdam",
+                "summary": "Magbot",
+                "hidden": false,
+                "color": {
+                    "foreground": "#000000",
+                    "background": "#9fe1e7"
+                }
+            },
+            ...
+        ]
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/appointments/{startDate}/{endDate}/</div>
+        </div>
+
+        <div class="section" id="/appointments/">
+            <div class="title">
+                <h1>Get appointments</h1>
+            </div>
+
+            <div class="description">
+                <p>Get all the appointments (from the default (primary) agenda) from the beginning to the end of the day. If <span class="link-section">startDate</span> is given (in ISO format), start from that time. If <span class="link-section">endDate</span> is given (also in ISO format), use that as the end time. <span class="link-section">startDate</span> obviously needs te be earlier then <span class="link-section">endDate</span>.</p>
+            </div>
+
+            <div class="data">
+                <table>
+                    <tr>
+                        <th class="key">Key</th>
+                        <th class="type">Type</th>
+                        <th class="description">Description</th>
+                    </tr>
+                    
+                    <tr>
+                        <td class="key">startDate</td>
+                        <td class="type">String?</td>
+                        <td class="description">The startdate to use when fetching the appointments. Defaults to the beginning of the day.</td>
+                    </tr>
+                    <tr>
+                        <td class="key">endDate</td>
+                        <td class="type">String?</td>
+                        <td class="description">The enddate to use when fetching the appointments. Has to be later then <span class="link-section">startDate</span>. Defaults to the end of the day.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/appointments/",
+    "code": 200,
+    "error": null,
+    "data": {
+        "appointments": [
+            {
+                "id": "6cd07k04gig5hbl65ob4rtvhms",
+                "title": "Test",
+                "color": {
+                    "background": "#a4bdfc",
+                    "foreground": "#1d1d1d"
+                },
+                "time": {
+                    "start": "2020-03-18T10:00:00.000Z",
+                    "end": "2020-03-18T11:00:00.000Z"
+                }
+            }
+        ]
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/appointments/{startDate}/{endDate}/</div>
+        </div>
+
+        <div class="section" id="/appointments/">
+            <div class="title">
+                <h1>Get appointments</h1>
+            </div>
+
+            <div class="description">
+                <p>Get all the appointments (from the default (primary) agenda) from the beginning to the end of the day. If <span class="link-section">startDate</span> is given (in ISO format), start from that time. If <span class="link-section">endDate</span> is given (also in ISO format), use that as the end time. <span class="link-section">startDate</span> obviously needs te be earlier then <span class="link-section">endDate</span>.</p>
+            </div>
+
+            <div class="data">
+                <table>
+                    <tr>
+                        <th class="key">Key</th>
+                        <th class="type">Type</th>
+                        <th class="description">Description</th>
+                    </tr>
+                    
+                    <tr>
+                        <td class="key">startDate</td>
+                        <td class="type">String?</td>
+                        <td class="description">The startdate to use when fetching the appointments. Defaults to the beginning of the day.</td>
+                    </tr>
+                    <tr>
+                        <td class="key">endDate</td>
+                        <td class="type">String?</td>
+                        <td class="description">The enddate to use when fetching the appointments. Has to be later then <span class="link-section">startDate</span>. Defaults to the end of the day.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/appointments/",
+    "code": 200,
+    "error": null,
+    "data": {
+        "appointments": [
+            {
+                "id": "6cd07k04gig5hbl65ob4rtvhms",
+                "title": "Test",
+                "color": {
+                    "background": "#a4bdfc",
+                    "foreground": "#1d1d1d"
+                },
+                "time": {
+                    "start": "2020-03-18T10:00:00.000Z",
+                    "end": "2020-03-18T11:00:00.000Z"
+                }
+            }
+        ]
+    }
+}</code></pre>
+            </div>
+        </div>
     </main>
 
     <script>
         const MAIN_COLOR = '#33a1c9'
+        const DATA_COLOR = '#ff9800'
         const KEY_COLOR = '#f1c40f'
         const VALUE_COLOR = '#eb3b5a'
         const QUERY_COLOR = '#2ecc71'
@@ -244,12 +430,15 @@
         function parseLink(link) {
             const BREAK = `\u200b`
             const SLASH = `<span style="color: ${MAIN_COLOR}">${BREAK}&sol;${BREAK}</span>`
-            const KEY   = `<span style="color: ${KEY_COLOR}">X</span>`
-            const VALUE = `<span style="color: ${VALUE_COLOR}">X</span>`
+            const DATA  = `<span style="color: ${DATA_COLOR}">{</span>$1<span style="color: ${DATA_COLOR}">}</span>`
+            const KEY   = `<span style="color: ${KEY_COLOR}">$1</span>`
+            const VALUE = `<span style="color: ${VALUE_COLOR}">$1</span>`
             const QUERY = `<span style="color: ${QUERY_COLOR}">${BREAK}&quest;${BREAK}</span>`
             
+            let res = ''
+            
             if (!link.includes('?')) {
-                return `<br>${link.replace(/\//g, SLASH)}`
+                res += `<br>${link.replace(/\//g, SLASH)}`
             } else {
                 var start = link.split('?')[0]
                 var end = link.split('?')[1]
@@ -259,19 +448,22 @@
                 for (var i = 0; i < keyValueArr.length; i++) {
                     var keyValue = keyValueArr[i].split('=')
                     
-                    keyValue[0] = KEY.replace('X', keyValue[0])
-                    keyValue[1] = VALUE.replace('X', keyValue[1])
+                    keyValue[0] = KEY.replace('$1', keyValue[0])
+                    keyValue[1] = VALUE.replace('$1', keyValue[1])
                     
                     formattedKeyValueArr.push(keyValue.join('='))
                 }
                 
-                return `<br>${start.replace(/\//g, SLASH)}${QUERY}${formattedKeyValueArr.join('&amp;')}`
+                res += `<br>${start.replace(/\//g, SLASH)}${QUERY}${formattedKeyValueArr.join('&amp;')}`
             }
+
+            res = res.replace(/{([a-zA-Z\-\_]+)}/g, DATA)
+            
+            return res
+
         }
         
-        hljs.initHighlightingOnLoad({
-            // tabReplace: '    '
-        });
+        hljs.initHighlightingOnLoad();
 
         document.querySelectorAll('div.link').forEach(elem => {
             elem.setAttribute('data-link', window.location.origin)
