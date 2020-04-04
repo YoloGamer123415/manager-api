@@ -108,3 +108,5 @@ config.json
 credentials.json
 token.json
 kijk_zo_moet_het.js
+
+.vscode/
