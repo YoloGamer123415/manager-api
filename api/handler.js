@@ -18,7 +18,7 @@ const CODES = {
     500: 'Internal Server Error',
     501: 'Not Implemented',
     503: 'Service Unavailable'
-}
+};
 
 /**
  * Makes a Handler class which can handle a api request.
@@ -35,19 +35,19 @@ class Handler {
      * @memberof Handler
      */
     constructor(req, res, checkAuth = true) {
-        this.req = req
-        this.res = res
-        this.statusCode = 200
-        this.alreadySend = false
-        this.mayRun = true
+        this.req = req;
+        this.res = res;
+        this.statusCode = 200;
+        this.alreadySend = false;
+        this.mayRun = true;
 
         if (checkAuth && !(
             this.req.headers &&
             this.req.headers['x-token'] &&
             this.req.headers['x-token'] === auth.token
         )) {
-            this.mayRun = false
-            this.status(401).error()
+            this.mayRun = false;
+            this.status(401).error();
         }
     }
 
@@ -59,9 +59,9 @@ class Handler {
      * @memberof Handler
      */
     status(code = 200) {
-        this.statusCode = code
+        this.statusCode = code;
 
-        return this
+        return this;
     }
 
     /**
@@ -72,17 +72,17 @@ class Handler {
      */
     error(error = null) {
         if (!this.alreadySend) {
-            this.alreadySend = true
+            this.alreadySend = true;
 
             if (this.statusCode < 400 || this.statusCode > 599) {
-                this.status(500)
+                this.status(500);
             }
 
             if (!error) {
                 if (this.statusCode in CODES) {
-                    error = CODES[this.statusCode]
+                    error = CODES[this.statusCode];
                 } else {
-                    error = 'An unknown error occurred'
+                    error = 'An unknown error occurred';
                 }
             }
 
@@ -91,7 +91,7 @@ class Handler {
                 code: this.statusCode,
                 error: error,
                 data: null
-            })
+            });
         }
     }
 
@@ -103,13 +103,13 @@ class Handler {
      */
     send(data = null) {
         if (!this.alreadySend) {
-            this.alreadySend = true
+            this.alreadySend = true;
 
             if (!data) {
                 if (this.statusCode in CODES) {
-                    data = CODES[this.statusCode]
+                    data = CODES[this.statusCode];
                 } else {
-                    data = 'An unknown error occurred'
+                    data = 'An unknown error occurred';
                 }
             }
 
@@ -118,7 +118,7 @@ class Handler {
                 code: this.statusCode,
                 error: null,
                 data: data
-            })
+            });
         }
     }
 
@@ -130,8 +130,8 @@ class Handler {
      */
     run(args) {
         if (this.mayRun)
-            this.status(501).send()
+            this.status(501).send();
     }
 }
 
-export default Handler
+export default Handler;
