@@ -4,111 +4,147 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/atom-one-dark.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
     <style>
-    :root {
-        --main-background-color: #252525;
-        --main-color: #33a1c9;
+        :root {
+            --main-background-color: #252525;
+            --main-color: #33a1c9;
 
-        --request-get: #26a66a;
-        --request-post: #bf820f;
-        --request-del: #bf4240;
-    }
+            --request-get: #26a66a;
+            --request-post: #bf820f;
+            --request-del: #bf4240;
 
-    * {
-        margin: 0;
-        padding: 0;
-        font-family: monospace;
-        line-height: 1.4;
-    }
+            --color-data: #ff9800;
+        }
 
-    *:not(h1):not(h2):not(h3):not(h4):not(H5):not(H6) {
-        font-size: 16px;
-    }
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
 
-    html,
-    body {
-        background-color: var(--main-background-color);
-        color: #ffffff;
-    }
+        ::-webkit-scrollbar-thumb {
+            background-color: #808080;
+            border-radius: 100px;
+        }
 
-    main {
-        display: grid;
-        grid-template-columns: 25% 75%;
-    }
+        * {
+            margin: 0;
+            padding: 0;
+            line-height: 1.4;
+        }
 
-    main div.side {
-        padding: 1em;
-    }
+        *:not(h1):not(h2):not(h3):not(h4):not(H5):not(H6) {
+            font-size: 16px;
+        }
 
-    main div.side div.type {
-        text-transform: uppercase;
-        font-size: 1.5em;
-        margin-bottom: .5em;
-    }
+        html,
+        body {
+            background-color: var(--main-background-color);
+            color: #ffffff;
+            font-family: sans-serif;
+        }
 
-    main div.side div.type.get {
-        color: var(--request-get);
-    }
+        main {
+            display: grid;
+            grid-template-columns: 25% 75%;
+        }
 
-    main div.side div.type.post {
-        color: var(--request-post);
-    }
+        main div.side {
+            padding: 1em;
+            font-family: monospace;
+        }
 
-    main div.side div.type.del {
-        color: var(--request-del);
-    }
+        main div.side div.type {
+            text-transform: uppercase;
+            font-size: 1.5em;
+            margin-bottom: .5em;
+        }
 
-    main div.side div.link::before {
-        content: attr(data-link);
-    }
+        main div.side div.type.get {
+            color: var(--request-get);
+        }
 
-    main div.section {
-        padding: 1em;
-        border-left: 2px solid var(--main-color);
-    }
+        main div.side div.type.post {
+            color: var(--request-post);
+        }
 
-    main div.section:not(.first) {
-        border-top: 2px solid var(--main-color);
-    }
+        main div.side div.type.del {
+            color: var(--request-del);
+        }
 
-    main div.section div.title {
-        margin-bottom: 1em;
-    }
+        main div.side div.link::before {
+            content: attr(data-link);
+        }
 
-    main div.section div.data table {
-        width: 100%;
-        border-collapse: collapse;
-    }
+        main div.section {
+            padding: 1em;
+            border-left: 2px solid var(--main-color);
+        }
 
-    main div.section div.data table tr:nth-child(even) {
-        background-color: #404040;
-    }
+        main div.section div.title {
+            margin-bottom: 1em;
+        }
 
-    main div.section div.data table tr th,
-    main div.section div.data table tr td {
-        padding: .5em;
-    }
+        main div.section div.description span.link-section {
+            font-family: monospace;
+            background: var(--main-background-color);
+        }
 
-    main div.section div.data table th {
-        font-size: 1.2em;
-        padding: 0 .5em;
-        text-align: left;
-    }
+        main div.section div.description span.link-section::before,
+        main div.section div.description span.link-section::after {
+            color: var(--color-data);
+        }
 
-    main div.section div.data table th.key,
-    main div.section div.data table td.key {
-        width: 20%;
-    }
+        main div.section div.description span.link-section::before {
+            content: '{';
+        }
 
-    main div.section div.data table th.type,
-    main div.section div.data table td.type {
-        width: 25%;
-    }
+        main div.section div.description span.link-section::after {
+            content: '}';
+        }
 
-    main div.section div.data table th.description,
-    main div.section div.data table td.description {
-        width: 55%;
-    }
+        main div.section div.data table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        main div.section div.data table tr:nth-child(even) {
+            background-color: #404040;
+        }
+
+        main div.section div.data table tr th,
+        main div.section div.data table tr td {
+            padding: .5em;
+        }
+
+        main div.section div.data table th {
+            font-size: 1.2em;
+            padding: 0 .5em;
+            text-align: left;
+        }
+
+        main div.section div.data table th.key,
+        main div.section div.data table td.key {
+            width: 20%;
+            font-family: monospace;
+        }
+
+        main div.section div.data table th.type,
+        main div.section div.data table td.type {
+            width: 25%;
+            font-family: monospace;
+        }
+
+        main div.section div.data table th.description,
+        main div.section div.data table td.description {
+            width: 55%;
+        }
+
+        main div.result {
+            padding-top: 1em;
+            font-family: monospace !important;
+        }
     </style>
     <title>Manager API</title>
 </head>
@@ -120,7 +156,7 @@
             <div class="link">/</div>
         </div>
 
-        <div class="section first" id="/">
+        <div class="section" id="/">
             <div class="title">
                 <h1>Help page</h1>
             </div>
@@ -157,24 +193,234 @@
                     <tr>
                         <td class="key">lol</td>
                         <td class="type">Number[]?</td>
-                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td class="description">
+                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td>
                     </tr>
                     <tr>
                         <td class="key">hopeloos</td>
                         <td class="type">Number?</td>
-                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td class="description">
+                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td>
                     </tr>
-				</table>
+                </table>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "idk": 123,
+    "nice": [ 1, null, "yeet" ],
+    "oof": {
+        "a": true
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/news/</div>
+        </div>
+
+        <div class="section" id="/news/">
+            <div class="title">
+                <h1>Get all the news</h1>
+            </div>
+
+            <div class="description">
+                <p>Get all the latest news.</p>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/news/",
+    "code": 200,
+    "error": null,
+    "data": {
+        "news": [
+            {
+                "source": "Telegraaf.nl",
+                "author": "Alexander Bakker en Martin Visser",
+                "title": "Kabinet: ook steun voor zzp’ers",
+                "description": "Het kabinet zal werknemers, ondernemers én zzp’ers inkomensbescherming bieden. Daarvoor komt de regering nog deze week met een pakket aanvullende maatregelen.",
+                "url": "https://www.telegraaf.nl/financieel/492984703/kabinet-ook-steun-voor-zzp-ers",
+                "image": "https://www.telegraaf.nl/images/1200x630/filters:format(jpeg):quality(80)/cdn-kiosk-api.telegraaf.nl/2c828064-67af-11ea-9a2e-02d1dbdc35d1.jpg"
+            },
+            ...
+        ],
+        "length": 20
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/calendars/</div>
+        </div>
+
+        <div class="section" id="/calendars/">
+            <div class="title">
+                <h1>Get all calendars</h1>
+            </div>
+
+            <div class="description">
+                <p>Get all the available calendars.</p>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/calendars/",
+    "code": 200,
+    "error": null,
+    "data": {
+        "calendars": [
+            {
+                "id": "bouut5c591jk0dhi7e0k92p2hc@group.calendar.google.com",
+                "timezone": "Europe/Amsterdam",
+                "summary": "Magbot",
+                "hidden": false,
+                "color": {
+                    "foreground": "#000000",
+                    "background": "#9fe1e7"
+                }
+            },
+            ...
+        ]
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/appointments/{startDate}/{endDate}/</div>
+        </div>
+
+        <div class="section" id="/appointments/">
+            <div class="title">
+                <h1>Get appointments</h1>
+            </div>
+
+            <div class="description">
+                <p>Get all the appointments (from the default (primary) agenda) from the beginning to the end of the day. If <span class="link-section">startDate</span> is given (in ISO format), start from that time. If <span class="link-section">endDate</span> is given (also in ISO format), use that as the end time. <span class="link-section">startDate</span> obviously needs te be earlier then <span class="link-section">endDate</span>.</p>
+            </div>
+
+            <div class="data">
+                <table>
+                    <tr>
+                        <th class="key">Key</th>
+                        <th class="type">Type</th>
+                        <th class="description">Description</th>
+                    </tr>
+                    
+                    <tr>
+                        <td class="key">startDate</td>
+                        <td class="type">String?</td>
+                        <td class="description">The startdate to use when fetching the appointments. Defaults to the beginning of the day.</td>
+                    </tr>
+                    <tr>
+                        <td class="key">endDate</td>
+                        <td class="type">String?</td>
+                        <td class="description">The enddate to use when fetching the appointments. Has to be later then <span class="link-section">startDate</span>. Defaults to the end of the day.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/appointments/",
+    "code": 200,
+    "error": null,
+    "data": {
+        "appointments": [
+            {
+                "id": "6cd07k04gig5hbl65ob4rtvhms",
+                "title": "Test",
+                "color": {
+                    "background": "#a4bdfc",
+                    "foreground": "#1d1d1d"
+                },
+                "time": {
+                    "start": "2020-03-18T10:00:00.000Z",
+                    "end": "2020-03-18T11:00:00.000Z"
+                }
+            }
+        ]
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/appointments/{startDate}/{endDate}/</div>
+        </div>
+
+        <div class="section" id="/appointments/">
+            <div class="title">
+                <h1>Get appointments</h1>
+            </div>
+
+            <div class="description">
+                <p>Get all the appointments (from the default (primary) agenda) from the beginning to the end of the day. If <span class="link-section">startDate</span> is given (in ISO format), start from that time. If <span class="link-section">endDate</span> is given (also in ISO format), use that as the end time. <span class="link-section">startDate</span> obviously needs te be earlier then <span class="link-section">endDate</span>.</p>
+            </div>
+
+            <div class="data">
+                <table>
+                    <tr>
+                        <th class="key">Key</th>
+                        <th class="type">Type</th>
+                        <th class="description">Description</th>
+                    </tr>
+                    
+                    <tr>
+                        <td class="key">startDate</td>
+                        <td class="type">String?</td>
+                        <td class="description">The startdate to use when fetching the appointments. Defaults to the beginning of the day.</td>
+                    </tr>
+                    <tr>
+                        <td class="key">endDate</td>
+                        <td class="type">String?</td>
+                        <td class="description">The enddate to use when fetching the appointments. Has to be later then <span class="link-section">startDate</span>. Defaults to the end of the day.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/appointments/",
+    "code": 200,
+    "error": null,
+    "data": {
+        "appointments": [
+            {
+                "id": "6cd07k04gig5hbl65ob4rtvhms",
+                "title": "Test",
+                "color": {
+                    "background": "#a4bdfc",
+                    "foreground": "#1d1d1d"
+                },
+                "time": {
+                    "start": "2020-03-18T10:00:00.000Z",
+                    "end": "2020-03-18T11:00:00.000Z"
+                }
+            }
+        ]
+    }
+}</code></pre>
             </div>
         </div>
     </main>
 
     <script>
         const MAIN_COLOR = '#33a1c9'
+        const DATA_COLOR = '#ff9800'
         const KEY_COLOR = '#f1c40f'
         const VALUE_COLOR = '#eb3b5a'
         const QUERY_COLOR = '#2ecc71'
-
+        
         /**
          * Parse a link to a fancy link with colors.
          * 
@@ -184,33 +430,40 @@
         function parseLink(link) {
             const BREAK = `\u200b`
             const SLASH = `<span style="color: ${MAIN_COLOR}">${BREAK}&sol;${BREAK}</span>`
-            const KEY   = `<span style="color: ${KEY_COLOR}">X</span>`
-            const VALUE = `<span style="color: ${VALUE_COLOR}">X</span>`
+            const DATA  = `<span style="color: ${DATA_COLOR}">{</span>$1<span style="color: ${DATA_COLOR}">}</span>`
+            const KEY   = `<span style="color: ${KEY_COLOR}">$1</span>`
+            const VALUE = `<span style="color: ${VALUE_COLOR}">$1</span>`
             const QUERY = `<span style="color: ${QUERY_COLOR}">${BREAK}&quest;${BREAK}</span>`
-
+            
+            let res = ''
+            
             if (!link.includes('?')) {
-                return link.replace(/\//g, SLASH)
+                res += `<br>${link.replace(/\//g, SLASH)}`
             } else {
-                console.log('wtf')
                 var start = link.split('?')[0]
                 var end = link.split('?')[1]
                 var keyValueArr = end.split(/&amp;/)
                 var formattedKeyValueArr = []
-
+                
                 for (var i = 0; i < keyValueArr.length; i++) {
-                    console.log(i, keyValueArr[i])
                     var keyValue = keyValueArr[i].split('=')
-
-                    keyValue[0] = KEY.replace('X', keyValue[0])
-                    keyValue[1] = VALUE.replace('X', keyValue[1])
-
+                    
+                    keyValue[0] = KEY.replace('$1', keyValue[0])
+                    keyValue[1] = VALUE.replace('$1', keyValue[1])
+                    
                     formattedKeyValueArr.push(keyValue.join('='))
-                    console.log(formattedKeyValueArr[i])
                 }
-
-                return `${start.replace(/\//g, SLASH)}${QUERY}${formattedKeyValueArr.join('&amp;')}`
+                
+                res += `<br>${start.replace(/\//g, SLASH)}${QUERY}${formattedKeyValueArr.join('&amp;')}`
             }
+
+            res = res.replace(/{([a-zA-Z\-\_]+)}/g, DATA)
+            
+            return res
+
         }
+        
+        hljs.initHighlightingOnLoad();
 
         document.querySelectorAll('div.link').forEach(elem => {
             elem.setAttribute('data-link', window.location.origin)
