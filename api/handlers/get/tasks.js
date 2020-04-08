@@ -12,20 +12,40 @@ class FetchTasksHandler extends Handler {
         super(req, res);
     }
 
+    /**
+     * Run the handler.
+     *
+     * @param {String[]} [args] The arguments to pass to the run function.
+     * @memberof FetchTasksHandler
+     */
     run(args) {
         let tasks = new Tasks();
 
-        tasks.getAllTasks()
-            .then(res => {
-                this.send({
-                    tasks: res,
-                    length: res.length
+        if (!args[0]) {
+            tasks.getAllTasklists()
+                .then(res => {
+                    this.send({
+                        tasklists: res,
+                        length: res.length
+                    })
                 })
-            })
-            .catch(err => {
-                console.error(err);
-                this.error(err);
-            });
+                .catch(err => {
+                    console.error(err);
+                    this.error(err);
+                });
+        } else {
+            tasks.getAllTasks(args[0])
+                .then(res => {
+                    this.send({
+                        id: args[0],
+                        tasks: res,
+                        length: res.length
+                    });
+                })
+                .catch(err => {
+                    
+                });
+        }
     }
 }
 
