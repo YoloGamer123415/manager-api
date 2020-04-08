@@ -412,6 +412,106 @@
 }</code></pre>
             </div>
         </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/tasks/</div>
+        </div>
+
+        <div class="section" id="/tasks/">
+            <div class="title">
+                <h1>Get all tasklists</h1>
+            </div>
+
+            <div class="description">
+                <p>Get all the tasklists, which then can be used to get the individual tasks.</p>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/tasks/",
+    "code": 200,
+    "error": null,
+    "data": {
+        "tasks": [
+            {
+                "id": "MTE0MzcwNDY0NjI1OTE0NjE4Mjc6MDow",
+                "title": "Mijn taken",
+                "updated": "2020-04-04T17:46:45.065Z"
+            },
+            ...
+        ],
+        "length": 2
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/tasks/{listId}/</div>
+        </div>
+
+        <div class="section">
+            <div class="title">
+                <h1>Get the tasks</h1>
+            </div>
+
+            <div class="description">
+                <p>Get all the tasks in the tasklist using the <span class="link-section">listId</span>.</p>
+            </div>
+
+            <div class="data">
+                <table>
+                    <tr>
+                        <th class="key">Key</th>
+                        <th class="type">Type</th>
+                        <th class="description">Description</th>
+                    </tr>
+                    
+                    <tr>
+                        <td class="key">listId</td>
+                        <td class="type">String</td>
+                        <td class="description">The id of the tasklist to fetch the tasks from.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/tasks/aExLUHdPNVFMbWhZS05qOA/",
+    "code": 200,
+    "error": null,
+    "data": {
+        "id": "aExLUHdPNVFMbWhZS05qOA",
+        "tasks": [
+            {
+                "id": "am9rU3pzcVR5OWZqVjJVZA",
+                "title": "wtf google",
+                "childs": []
+            },
+            {
+                "id": "R29rVFhISG5CdDA0YWdUVg",
+                "title": "nice",
+                "childs": [
+                    {
+                        "id": "VDRydXZCVWZUU2I5X054Zg",
+                        "title": "blabla",
+                        "due": "2020-04-08T00:00:00.000Z",
+                        "childs": []
+                    },
+                    ...
+                ]
+            },
+            ...
+        ],
+        "length": 2
+    }
+}</code></pre>
+            </div>
+        </div>
     </main>
 
     <script>
