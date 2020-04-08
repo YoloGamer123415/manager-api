@@ -125,7 +125,7 @@ class Handler {
     /**
      * Run the handler.
      *
-     * @param {Array<any>} [args] The arguments to pass to the run function.
+     * @param {String[]} [args] The arguments to pass to the run function.
      * @memberof Handler
      */
     run(args) {
