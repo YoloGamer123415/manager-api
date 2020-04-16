@@ -116,6 +116,7 @@
         main div.section div.data table tr th,
         main div.section div.data table tr td {
             padding: .5em;
+            vertical-align: top;
         }
 
         main div.section div.data table th {
@@ -163,54 +164,6 @@
 
             <div class="description">
                 <p>Get the help page you're currently on.</p>
-            </div>
-        </div>
-
-        <div class="side">
-            <div class="type post">post</div>
-
-            <div class="link">/nice/?ding=idk&lol=12334</div>
-        </div>
-
-        <div class="section" id="/nice/">
-            <div class="title">
-                <h1>/nice/</h1>
-            </div>
-
-            <div class="data">
-                <table>
-                    <tr>
-                        <th class="key">Key</th>
-                        <th class="type">Type</th>
-                        <th class="description">Description</th>
-                    </tr>
-
-                    <tr>
-                        <td class="key">ding</td>
-                        <td class="type">String[]</td>
-                        <td class="description">Ja weet ik veel wat je hier in zou moeten vullen.</td>
-                    </tr>
-                    <tr>
-                        <td class="key">lol</td>
-                        <td class="type">Number[]?</td>
-                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td>
-                    </tr>
-                    <tr>
-                        <td class="key">hopeloos</td>
-                        <td class="type">Number?</td>
-                        <td class="description">En hier weet ik het dan natuurlijk ook niet...</td>
-                    </tr>
-                </table>
-            </div>
-
-            <div class="result">
-                <pre><code>{
-    "idk": 123,
-    "nice": [ 1, null, "yeet" ],
-    "oof": {
-        "a": true
-    }
-}</code></pre>
             </div>
         </div>
 
@@ -297,7 +250,7 @@
             <div class="link">/appointments/{startDate}/{endDate}/</div>
         </div>
 
-        <div class="section" id="/appointments/">
+        <div class="section" id="/appointments/{startDate}/{endDate}/">
             <div class="title">
                 <h1>Get appointments</h1>
             </div>
@@ -355,16 +308,16 @@
         <div class="side">
             <div class="type get">get</div>
 
-            <div class="link">/appointments/{startDate}/{endDate}/</div>
+            <div class="link">/appointments/{calendarId}/{startDate}/{endDate}/</div>
         </div>
 
-        <div class="section" id="/appointments/">
+        <div class="section" id="/appointments/{calendarId}/{startDate}/{endDate}/">
             <div class="title">
-                <h1>Get appointments</h1>
+                <h1>Get appointments from calendar</h1>
             </div>
 
             <div class="description">
-                <p>Get all the appointments (from the default (primary) agenda) from the beginning to the end of the day. If <span class="link-section">startDate</span> is given (in ISO format), start from that time. If <span class="link-section">endDate</span> is given (also in ISO format), use that as the end time. <span class="link-section">startDate</span> obviously needs te be earlier then <span class="link-section">endDate</span>.</p>
+                <p>Get all the appointments (from agenda with id <span class="link-section">calendarId</span>) from the beginning to the end of the day. If <span class="link-section">startDate</span> is given (in ISO format), start from that time. If <span class="link-section">endDate</span> is given (also in ISO format), use that as the end time. <span class="link-section">startDate</span> obviously needs te be earlier then <span class="link-section">endDate</span>.</p>
             </div>
 
             <div class="data">
@@ -375,6 +328,11 @@
                         <th class="description">Description</th>
                     </tr>
                     
+                    <tr>
+                        <td class="key">calendarId</td>
+                        <td class="type">String</td>
+                        <td class="description">The id of the calendar to get the appointments from.</td>
+                    </tr>
                     <tr>
                         <td class="key">startDate</td>
                         <td class="type">String?</td>
@@ -390,24 +348,125 @@
 
             <div class="result">
                 <pre><code>{
-    "uri": "/appointments/",
+    "uri": "/appointments/bouut5c591jk0dhi7e0k92p2hc@group.calendar.google.com/2020-01-16T00:00:00.000Z/",
     "code": 200,
     "error": null,
     "data": {
         "appointments": [
             {
-                "id": "6cd07k04gig5hbl65ob4rtvhms",
-                "title": "Test",
+                "id": "magbot2334346",
+                "title": "2 - Scheikunde van J.A.J. van der Wijst",
+                "description": "&lt;p&gt;HW: vraag 1 tm 34 van het boekje 'extra vragen'.&amp;nbsp;&lt;/p&gt;&lt;p&gt;Maak zeker niet alle vragen, maar scan en zorg dat je weet uit welke deeltjes atomen en ionen zijn opgebouwd.&amp;nbsp;&lt;/p&gt;",
+                "location": "11",
                 "color": {
-                    "background": "#a4bdfc",
+                    "background": "#fbd75b",
                     "foreground": "#1d1d1d"
                 },
                 "time": {
-                    "start": "2020-03-18T10:00:00.000Z",
-                    "end": "2020-03-18T11:00:00.000Z"
+                    "start": "2020-01-20T08:10:00.000Z",
+                    "end": "2020-01-20T09:00:00.000Z"
                 }
             }
         ]
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/mail/unread/</div>
+        </div>
+
+        <div class="section" id="/mail/unread/">
+            <div class="title">
+                <h1>Get unread emails</h1>
+            </div>
+
+            <div class="description">
+                <p>Get all the id's from the unread emails.</p>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/mail/unread",
+    "code": 200,
+    "error": null,
+    "data": {
+        "emails": [
+            {
+                "id": "17182ae0ad207f3d",
+                "threadId": "17182ae0ad207f3d"
+            },
+            ...
+        ],
+        "length": 67
+    }
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="side">
+            <div class="type get">get</div>
+
+            <div class="link">/mail/{mailId}</div>
+        </div>
+
+        <div class="section" id="/mail/{mailId}">
+            <div class="title">
+                <h1>Get the mail by id</h1>
+            </div>
+
+            <div class="description">
+                <p>Get the mail by their id <span class="link-section">mailId</span>.</p>
+            </div>
+
+            <div class="data">
+                <table>
+                    <tr>
+                        <th class="key">Key</th>
+                        <th class="type">Type</th>
+                        <th class="description">Description</th>
+                    </tr>
+                    
+                    <tr>
+                        <td class="key">mailId</td>
+                        <td class="type">String</td>
+                        <td class="description">The id of the mail to get the information from.</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="result">
+                <pre><code>{
+    "uri": "/mail/16fb365eda44faae",
+    "code": 200,
+    "error": null,
+    "data": {
+        "id": "16fb365eda44faae",
+        "labelIds": [
+            "UNREAD",
+            "CATEGORY_PERSONAL",
+            "INBOX"
+        ],
+        "received": "2020-01-17T12:06:37.000Z",
+        "to": [
+            {
+                "name": null,
+                "mail": "jorambuitenhuis@gmail.com"
+            }
+        ],
+        "from": {
+            "name": "Google",
+            "mail": "no-reply@accounts.google.com"
+        },
+        "subject": "Beveiligingsmelding",
+        "message": {
+            "short": "Google APIs Explorer heeft toegang gekregen tot je Google-account jorambuitenhuis@gmail.com Als je geen toegang hebt verleend, controleer je deze activiteit en beveilig je je account. Activiteit",
+            "text": "W2ltYWdlOiBHb29nbGVdDQpHb29nbGUgQVBJcyBFeHBsb3JlciBoZWVmdCB0b2VnYW5nIGdla3JlZ2VuIHRvdCBqZSBHb29nbGUtYWNjb3VudA0KDQoNCmpvcmFtYnVpdGVuaHVpc0BnbWFpbC5jb20NCg0KQWxzIGplIGdlZW4gdG9lZ2FuZyBoZWJ0IHZlcmxlZW5kLCBjb250cm9sZWVyIGplIGRlemUgYWN0aXZpdGVpdCBlbg0KYmV2ZWlsaWcgamUgamUgYWNjb3VudC4NCkFjdGl2aXRlaXQgY29udHJvbGVyZW4NCjxodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20vQWNjb3VudENob29zZXI/RW1haWw9am9yYW1idWl0ZW5odWlzQGdtYWlsLmNvbSZjb250aW51ZT1odHRwczovL215YWNjb3VudC5nb29nbGUuY29tL2FsZXJ0L250LzE1NzkyNjI3OTcwMDA/cmZuJTNEMTI3JTI2cmZuYyUzRDElMjZlaWQlM0QxMjAyMzM4MTU4NTAyNDk4NTEzJTI2ZXQlM0QwPg0KSmUgb250dmFuZ3QgZGV6ZSBlLW1haWwgb20gamUgdGUgaW5mb3JtZXJlbiBvdmVyIGJlbGFuZ3JpamtlIHdpanppZ2luZ2VuIGluDQpqZSBHb29nbGUtYWNjb3VudCBlbiAtc2VydmljZXMuDQrCqSAyMDIwIEdvb2dsZSBMTEMsIDE2MDAgQW1waGl0aGVhdHJlIFBhcmt3YXksIE1vdW50YWluIFZpZXcsIENBIDk0MDQzLCBVU0ENCg==",
+            "html": "PCFET0NUWVBFIGh0bWw+PGh0bWwgbGFuZz1lbj48aGVhZD48bWV0YSBuYW1lPWZvcm1hdC1kZXRlY3Rpb24gY29udGVudD1lbWFpbD1ubyAvPjxtZXRhIG5hbWU9Zm9ybWF0LWRldGVjdGlvbiBjb250ZW50PWRhdGU9bm8gLz48c3R5bGUgbm9uY2U9MUJYa1BhdVRSSG9EeFUzVUR4MHZPUT4uYXdsIGEge2NvbG9yOiAjRkZGRkZGOyB0ZXh0LWRlY29yYXRpb246IG5vbmU7fSAuYWJtbCBhIHtjb2xvcjogIzAwMDAwMDsgZm9udC1mYW1pbHk6IFJvYm90by1NZWRpdW0sSGVsdmV0aWNhLEFyaWFsLHNhbnMtc2VyaWY7IGZvbnQtd2VpZ2h0OiBib2xkOyB0ZXh0LWRlY29yYXRpb246IG5vbmU7fSAuYWRnbCBhIHtjb2xvcjogcmdiYSgwLCAwLCAwLCAwLjg3KTsgdGV4dC1kZWNvcmF0aW9uOiBub25lO30gLmFmYWwgYSB7Y29sb3I6ICNiMGIwYjA7IHRleHQtZGVjb3JhdGlvbjogbm9uZTt9IEBtZWRpYSBzY3JlZW4gYW5kIChtaW4td2lkdGg6IDYwMHB4KSB7LnYyc3Age3BhZGRpbmc6IDZweCAzMHB4IDBweDt9IC52MnJzcCB7cGFkZGluZzogMHB4IDEwcHg7fX0gQG1lZGlhIHNjcmVlbiBhbmQgKG1pbi13aWR0aDogNjAwcHgpIHsubWR2MnJ3IHtwYWRkaW5nOiA0MHB4IDQwcHg7fX0gPC9zdHlsZT48bGluayBocmVmPS8vZm9udHMuZ29vZ2xlYXBpcy5jb20vY3NzP2ZhbWlseT1Hb29nbGUrU2FucyByZWw9c3R5bGVzaGVldCB0eXBlPXRleHQvY3NzIC8+PC9oZWFkPjxib2R5IHN0eWxlPSJtYXJnaW46IDA7IHBhZGRpbmc6IDA7IiBiZ2NvbG9yPSNGRkZGRkY+PGltZyBzcmM9aHR0cHM6Ly9ub3RpZmljYXRpb25zLmdvb2dsZWFwaXMuY29tL2VtYWlsL3QvQUZHOHF5VlBMa29iOHNmZFRkVC0wZ0lnOXdFdEVsNDdSS0NOSXczOVhJUWVSZ3Z1d1otZF9Hd3JhVWpKdi11eUhVS2NSTERmS1Vxb1l0cGV6bWJhbEZKRFZteTd3aEJUOF9PMFBoWm51aDhpVGdfT3NTbjR3ZTljZkUyT1I5c3ZCbXJDZC02SUVnQW1SRVFpWjF5WTVMT1NIaE02QS1hLUR0c0taUlNZS2RsVk41UnhYV3NVdjBFV0d4ajZTYXFaMFlDR3MtTlZGMEVLeXkzbFpkYzRXdjFfelYzMWp4Nk5Kbk9STzdpa2RvSDNJVXVtSVJKVjRMMWlud1NNQ1JzX29OWFA5ZFpHcmNNYzJNbC0vYS5naWYgd2lkdGg9MSBoZWlnaHQ9MT48dGFibGUgd2lkdGg9MTAwJSBoZWlnaHQ9MTAwJSBzdHlsZT0ibWluLXdpZHRoOiAzNDhweDsiIGJvcmRlcj0wIGNlbGxzcGFjaW5nPTAgY2VsbHBhZGRpbmc9MCBsYW5nPWVuPjx0ciBoZWlnaHQ9MzIgc3R5bGU9ImhlaWdodDogMzJweDsiPjx0ZD48L3RkPjwvdHI+PHRyIGFsaWduPWNlbnRlcj48dGQ+PGRpdiBpdGVtc2NvcGUgaXRlbXR5cGU9Ly9zY2hlbWEub3JnL0VtYWlsTWVzc2FnZT48ZGl2IGl0ZW1wcm9wPWFjdGlvbiBpdGVtc2NvcGUgaXRlbXR5cGU9Ly9zY2hlbWEub3JnL1ZpZXdBY3Rpb24+PGxpbmsgaXRlbXByb3A9dXJsIGhyZWY9aHR0cHM6Ly9hY2NvdW50cy5nb29nbGUuY29tL0FjY291bnRDaG9vc2VyP0VtYWlsPWpvcmFtYnVpdGVuaHVpc0BnbWFpbC5jb20mYW1wO2NvbnRpbnVlPWh0dHBzOi8vbXlhY2NvdW50Lmdvb2dsZS5jb20vYWxlcnQvbnQvMTU3OTI2Mjc5NzAwMD9yZm4lM0QxMjclMjZyZm5jJTNEMSUyNmVpZCUzRDEyMDIzMzgxNTg1MDI0OTg1MTMlMjZldCUzRDAgLz48bWV0YSBpdGVtcHJvcD1uYW1lIGNvbnRlbnQ9IkFjdGl2aXRlaXQgYmVraWprZW4iIC8+PC9kaXY+PC9kaXY+PHRhYmxlIGJvcmRlcj0wIGNlbGxzcGFjaW5nPTAgY2VsbHBhZGRpbmc9MCBzdHlsZT0icGFkZGluZy1ib3R0b206IDIwcHg7IG1heC13aWR0aDogNTE2cHg7IG1pbi13aWR0aDogMjIwcHg7Ij48dHI+PHRkIHdpZHRoPTggc3R5bGU9IndpZHRoOiA4cHg7Ij48L3RkPjx0ZD48ZGl2IHN0eWxlPSJib3JkZXItc3R5bGU6IHNvbGlkOyBib3JkZXItd2lkdGg6IHRoaW47IGJvcmRlci1jb2xvcjojZGFkY2UwOyBib3JkZXItcmFkaXVzOiA4cHg7IHBhZGRpbmc6IDQwcHggMjBweDsiIGFsaWduPWNlbnRlciBjbGFzcz1tZHYycnc+PGltZyBzcmM9aHR0cHM6Ly93d3cuZ3N0YXRpYy5jb20vaW1hZ2VzL2JyYW5kaW5nL2dvb2dsZWxvZ28vMngvZ29vZ2xlbG9nb19jb2xvcl83NHgyNGRwLnBuZyB3aWR0aD03NCBoZWlnaHQ9MjQgYXJpYS1oaWRkZW49dHJ1ZSBzdHlsZT0ibWFyZ2luLWJvdHRvbTogMTZweDsiIGFsdD1Hb29nbGU+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6ICYjMzk7R29vZ2xlIFNhbnMmIzM5OyxSb2JvdG8sUm9ib3RvRHJhZnQsSGVsdmV0aWNhLEFyaWFsLHNhbnMtc2VyaWY7Ym9yZGVyLWJvdHRvbTogdGhpbiBzb2xpZCAjZGFkY2UwOyBjb2xvcjogcmdiYSgwLDAsMCwwLjg3KTsgbGluZS1oZWlnaHQ6IDMycHg7IHBhZGRpbmctYm90dG9tOiAyNHB4O3RleHQtYWxpZ246IGNlbnRlcjsgd29yZC1icmVhazogYnJlYWstd29yZDsiPjxkaXYgc3R5bGU9ImZvbnQtc2l6ZTogMjRweDsiPjxhPkdvb2dsZSBBUElzIEV4cGxvcmVyPC9hPiBoZWVmdCB0b2VnYW5nIGdla3JlZ2VuIHRvdCBqZSBHb29nbGUtYWNjb3VudDwvZGl2Pjx0YWJsZSBhbGlnbj1jZW50ZXIgc3R5bGU9bWFyZ2luLXRvcDo4cHg7Pjx0ciBzdHlsZT0ibGluZS1oZWlnaHQ6IG5vcm1hbDsiPjx0ZCBhbGlnbj1yaWdodCBzdHlsZT1wYWRkaW5nLXJpZ2h0OjhweDs+PGltZyB3aWR0aD0yMCBoZWlnaHQ9MjAgc3R5bGU9IndpZHRoOiAyMHB4OyBoZWlnaHQ6IDIwcHg7IHZlcnRpY2FsLWFsaWduOiBzdWI7IGJvcmRlci1yYWRpdXM6IDUwJTs7IiBzcmM9aHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EtL0FBdUU3bUFybmJGaVJ5WWxfZ3gzVFdUQi1RMk94OW44WXNyT0hyTFQzYUFWYVE9czk2IGFsdD0iIj48L3RkPjx0ZD48YSBzdHlsZT0iZm9udC1mYW1pbHk6ICYjMzk7R29vZ2xlIFNhbnMmIzM5OyxSb2JvdG8sUm9ib3RvRHJhZnQsSGVsdmV0aWNhLEFyaWFsLHNhbnMtc2VyaWY7Y29sb3I6IHJnYmEoMCwwLDAsMC44Nyk7IGZvbnQtc2l6ZTogMTRweDsgbGluZS1oZWlnaHQ6IDIwcHg7Ij5qb3JhbWJ1aXRlbmh1aXNAZ21haWwuY29tPC9hPjwvdGQ+PC90cj48L3RhYmxlPjwvZGl2PjxkaXYgc3R5bGU9ImZvbnQtZmFtaWx5OiBSb2JvdG8tUmVndWxhcixIZWx2ZXRpY2EsQXJpYWwsc2Fucy1zZXJpZjsgZm9udC1zaXplOiAxNHB4OyBjb2xvcjogcmdiYSgwLDAsMCwwLjg3KTsgbGluZS1oZWlnaHQ6IDIwcHg7cGFkZGluZy10b3A6IDIwcHg7IHRleHQtYWxpZ246IGxlZnQ7Ij48YnI+QWxzIGplIGdlZW4gdG9lZ2FuZyBoZWJ0IHZlcmxlZW5kLCBjb250cm9sZWVyIGplIGRlemUgYWN0aXZpdGVpdCBlbiBiZXZlaWxpZyBqZSBqZSBhY2NvdW50LjxkaXYgc3R5bGU9InBhZGRpbmctdG9wOiAzMnB4OyB0ZXh0LWFsaWduOiBjZW50ZXI7Ij48YSBocmVmPWh0dHBzOi8vYWNjb3VudHMuZ29vZ2xlLmNvbS9BY2NvdW50Q2hvb3Nlcj9FbWFpbD1qb3JhbWJ1aXRlbmh1aXNAZ21haWwuY29tJmFtcDtjb250aW51ZT1odHRwczovL215YWNjb3VudC5nb29nbGUuY29tL2FsZXJ0L250LzE1NzkyNjI3OTcwMDA/cmZuJTNEMTI3JTI2cmZuYyUzRDElMjZlaWQlM0QxMjAyMzM4MTU4NTAyNDk4NTEzJTI2ZXQlM0QwIHRhcmdldD1fYmxhbmsgc3R5bGU9ImZvbnQtZmFtaWx5OiAmIzM5O0dvb2dsZSBTYW5zJiMzOTssUm9ib3RvLFJvYm90b0RyYWZ0LEhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmOyBsaW5lLWhlaWdodDogMTZweDsgY29sb3I6ICNmZmZmZmY7IGZvbnQtd2VpZ2h0OiA0MDA7IHRleHQtZGVjb3JhdGlvbjogbm9uZTtmb250LXNpemU6IDE0cHg7ZGlzcGxheTppbmxpbmUtYmxvY2s7cGFkZGluZzogMTBweCAyNHB4O2JhY2tncm91bmQtY29sb3I6ICM0MTg0RjM7IGJvcmRlci1yYWRpdXM6IDVweDsgbWluLXdpZHRoOiA5MHB4OyI+QWN0aXZpdGVpdCBjb250cm9sZXJlbjwvYT48L2Rpdj48L2Rpdj48L2Rpdj48ZGl2IHN0eWxlPSJ0ZXh0LWFsaWduOiBsZWZ0OyI+PGRpdiBzdHlsZT0iZm9udC1mYW1pbHk6IFJvYm90by1SZWd1bGFyLEhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmO2NvbG9yOiByZ2JhKDAsMCwwLDAuNTQpOyBmb250LXNpemU6IDExcHg7IGxpbmUtaGVpZ2h0OiAxOHB4OyBwYWRkaW5nLXRvcDogMTJweDsgdGV4dC1hbGlnbjogY2VudGVyOyI+PGRpdj5KZSBvbnR2YW5ndCBkZXplIGUtbWFpbCBvbSBqZSB0ZSBpbmZvcm1lcmVuIG92ZXIgYmVsYW5ncmlqa2Ugd2lqemlnaW5nZW4gaW4gamUgR29vZ2xlLWFjY291bnQgZW4gLXNlcnZpY2VzLjwvZGl2PjxkaXYgc3R5bGU9ImRpcmVjdGlvbjogbHRyOyI+JmNvcHk7IDIwMjAgR29vZ2xlIExMQywgPGEgY2xhc3M9YWZhbCBzdHlsZT0iZm9udC1mYW1pbHk6IFJvYm90by1SZWd1bGFyLEhlbHZldGljYSxBcmlhbCxzYW5zLXNlcmlmO2NvbG9yOiByZ2JhKDAsMCwwLDAuNTQpOyBmb250LXNpemU6IDExcHg7IGxpbmUtaGVpZ2h0OiAxOHB4OyBwYWRkaW5nLXRvcDogMTJweDsgdGV4dC1hbGlnbjogY2VudGVyOyI+MTYwMCBBbXBoaXRoZWF0cmUgUGFya3dheSwgTW91bnRhaW4gVmlldywgQ0EgOTQwNDMsIFVTQTwvYT48L2Rpdj48L2Rpdj48L2Rpdj48L3RkPjx0ZCB3aWR0aD04IHN0eWxlPSJ3aWR0aDogOHB4OyI+PC90ZD48L3RyPjwvdGFibGU+PC90ZD48L3RyPjx0ciBoZWlnaHQ9MzIgc3R5bGU9ImhlaWdodDogMzJweDsiPjx0ZD48L3RkPjwvdHI+PC90YWJsZT48L2JvZHk+PC9odG1sPg=="
+        }
     }
 }</code></pre>
             </div>
@@ -454,7 +513,7 @@
             <div class="link">/tasks/{listId}/</div>
         </div>
 
-        <div class="section">
+        <div class="section" id="/tasks/{listId}">
             <div class="title">
                 <h1>Get the tasks</h1>
             </div>
