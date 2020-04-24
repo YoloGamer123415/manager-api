@@ -9,7 +9,7 @@ import Mail, { MailUsermailadress, MailMessage } from "./Mail";
  * @param {String} key
  */
 function findInPayloadHeaders(mailObject, key) {
-    return mailObject.payload.headers.find(h => h.name == key).value
+    return mailObject.payload.headers.find(h => h.name == key).value;
 }
 
 /**
@@ -19,20 +19,10 @@ function findInPayloadHeaders(mailObject, key) {
  * @returns {Array<Mail>}
  */
 function formatMails(mails) {
-    let ret = []
+    let ret = [];
 
     mails.forEach(mail => {
-        let to = findInPayloadHeaders(mail, 'To').split(/, +/g)
-        let shortMsg = mail.snippet
-        let textMsg = null
-        let htmlMsg = null
-        
-        if (mail.payload && mail.payload.parts) {
-            textMsg = mail.payload.parts.find(p => p.mimeType == 'text/plain').body.data
-            htmlMsg = mail.payload.parts.find(p => p.mimeType == 'text/html').body.data
-        } else {
-            textMsg = mail.payload.body.data
-        }
+        let to = findInPayloadHeaders(mail, 'To').split(/, +/g);
 
         ret.push(new Mail({
             id: mail.id,
@@ -41,25 +31,21 @@ function formatMails(mails) {
             to: to.map(t => new MailUsermailadress(t)),
             from: new MailUsermailadress(findInPayloadHeaders(mail, 'From')),
             subject: findInPayloadHeaders(mail, 'Subject'),
-            message: new MailMessage({
-                short: shortMsg,
-                text: textMsg,
-                html: htmlMsg
-            })
-        }))
-    })
+            message: new MailMessage(mail)
+        }));
+    });
 
-    return ret
+    return ret;
 }
 
 class Gmail extends Google {
     constructor() {
-        super()
+        super();
 
         this.gmail = google.gmail({
             version: 'v1',
             auth: this.oAuth2Client
-        })
+        });
     }
 
     /**
@@ -75,10 +61,10 @@ class Gmail extends Google {
                 includeSpamTrash: false
             }).then(m => m.data.messages)
                 .then(res => {
-                    resolve(res)
+                    resolve(res);
                 })
-                .catch(reject)
-        })
+                .catch(reject);
+        });
     }
 
     /**
@@ -95,17 +81,17 @@ class Gmail extends Google {
                 q: 'is:unread category:primary'
             }).then(m => m.data.messages)
                 .then(res => {
-                    resolve(res)
+                    resolve(res);
                 })
-                .catch(reject)
-        })
+                .catch(reject);
+        });
     }
 
     /**
      * Get a mail by its id.
      *
      * @param {String} id
-     * @returns {Promise<gmail_v1.Schema$ListMessagesResponse, any>}
+     * @returns {Promise<Mail, any>}
      * @memberof Gmail
      */
     getMailsById(id) {
@@ -119,12 +105,12 @@ class Gmail extends Google {
                     includeSpamTrash: false
                 }).then(m => m.data)
                     .then(res => {
-                        resolve(formatMails([ res ])[0])
+                        resolve(formatMails([ res ])[0]);
                     })
-                    .catch(reject)
-            })
+                    .catch(reject);
+            });
         }
     }
 }
 
-export default Gmail
+export default Gmail;

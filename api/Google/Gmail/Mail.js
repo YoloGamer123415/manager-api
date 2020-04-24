@@ -35,11 +35,28 @@ class MailUsermailadress {
     }
 }
 
+class File {
+    /**
+     * Creates an instance of File.
+     * 
+     * @param {import('googleapis').gmail_v1.Schema$MessagePart} options
+     * @memberof File
+     */
+    constructor(options) {
+        this.name = options.filename;
+        this.mimeType = options.mimeType;
+        this.id = options.body.attachmentId;
+    }
+}
+
+/**
+ * The format Google returns is weird base64 (...?), so we parse it into a normal string, because if we turn it back into base64, the html escaped characters look weird.
+ * @param {String} str The weird base64 format.
+ */
+const parseBase64 = str => Buffer.from(str, 'base64').toString();
+
 /**
  * @typedef {Object} MailMessageOptions
- * @property {String} short
- * @property {String} text
- * @property {String} html
  */
 
 /**
@@ -49,15 +66,40 @@ class MailMessage {
     /**
      * Creates an instance of MailMessage.
      * 
-     * @param {MailMessageOptions} options
+     * @param {import('googleapis').gmail_v1.Schema$Message} options
      * @memberof MailMessage
      */
     constructor(options) {
-        this.short = options.short
-        this.text = Buffer.from(options.text, 'base64').toString('base64')
-        this.html = options.html
-            ? Buffer.from(options.html, 'base64').toString('base64')
-            : null
+        this.preview = options.snippet || null;
+        this.text = null;
+        this.html = null;
+        this.files = [];
+
+        if (!options.payload.parts) {
+            switch ( options.payload.mimeType.replace(/.+\//g, '') ) {
+                case 'text':
+                    this.text = parseBase64(options.payload.body.data);
+                    break;
+                case 'html':
+                    this.html = parseBase64(options.payload.body.data).replace(/\r|\n/g, '');
+                    break;
+                default:
+                    this[ options.payload.mimeType.replace(/.+\//g, '') ] = parseBase64(options.payload.body.data);
+            }
+        } else {
+            for (let i = 0; i < options.payload.parts.length; i++) {
+                const part = options.payload.parts[i];
+    
+                if (part.mimeType === 'text/plain')
+                    this.text = parseBase64(part.body.data);
+                else
+                if (part.mimeType === 'text/html')
+                    this.html = parseBase64(part.body.data).replace(/\r|\n/g, '');
+                else
+                if (part.mimeType.match(/application\/.+/g))
+                    this.files.push( new File(part) );
+            }
+        }
     }
 }
 
