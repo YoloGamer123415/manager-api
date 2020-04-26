@@ -173,7 +173,7 @@ class Agenda extends Google {
                         let endMinutes = endTime.getHours() * 60 + endTime.getMinutes();
                         let delta = endMinutes - startMinutes;
 
-                        ret[dayN] += delta / 60;
+                        ret[dayN] += parseFloat( (delta / 60).toFixed(2) );
                     }
                 }
 
